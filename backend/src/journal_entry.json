@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Journal entry",
+  "description": "The definition for a journal entry of >= 2 line items",
+  "type": "object",
+  "properties": {
+    "id": {"$ref": "#uuid"},
+    "line-items": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "properties": {
+          "account-id": {"$ref": "#uuid"},
+          "amount": {
+            "type": "integer",
+            "exclusiveMinimum": 0
+          },
+          "type": {"enum":  ["credit", "debit"]}
+        },
+        "required": ["account-id", "amount", "type"]
+      }
+    }
+  },
+  "required": ["id", "line-items"],
+  "$defs": {
+    "uuid": {
+      "$anchor": "uuid",
+      "description": "The string form of a UUID",
+      "type": "string",
+      "minLength": 36,
+      "maxLength": 36,
+      "pattern": "^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$"
+    }
+  }
+}

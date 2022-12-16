@@ -1,0 +1,9 @@
+# Answer for Q1
+
+One possible cause of the bug is that the service is not properly checking the balance constraints of all affected accounts before deciding whether to apply the journal entry. This could be because the code responsible for checking the constraints is incorrect, or because there is a race condition in the multi-threaded web app that allows multiple threads to simultaneously check and modify the same account's balance.
+
+To mitigate this bug, one potential fix would be to add additional code to properly check the balance constraints of all affected accounts before applying the journal entry. This could involve locking the accounts while they are being checked and modified, to prevent race conditions. However, this could impact the performance and scalability of the web app, as locking operations can be computationally expensive and can reduce the number of concurrent transactions that can be processed.
+
+Another potential fix would be to use a database with support for transactions, such as MySQL or Oracle. This would allow the service to atomically check and modify the balances of multiple accounts, ensuring that the balance constraints are always enforced. This could improve the performance and scalability of the web app, as it would reduce the need for locking operations and allow for more concurrent transactions to be processed.
+
+Alternatively, the service could be redesigned to use a different concurrency model, such as an actor-based model, which could provide better support for concurrent access to shared state. This could improve the performance and scalability of the web app, as it would allow for more fine-grained control over concurrency and reduce the need for locking operations. However, implementing a new concurrency model would require significant changes to the existing codebase, and could introduce additional complexity.
